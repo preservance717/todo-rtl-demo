@@ -1,19 +1,28 @@
 import React, { useState } from "react";
+import { Todo } from "../../data";
 import "./style.scss";
 
 const ENTER_KEY_CODE = 13;
 
-const AddTodo = () => {
-  const [todo, setTodo] = useState("");
+interface Props {
+  onAddTodo: (todo: Todo) => void;
+}
+
+const AddTodo: React.FC<Props> = (props: Props) => {
+  const [title, setTitle] = useState("");
 
   const handleChange = ({ target }: { target: any }) => {
-    setTodo(target.value);
+    setTitle(target.value);
   };
 
   const handlekeyDown = (event: any) => {
     if (event.keyCode === ENTER_KEY_CODE) {
-      console.log(todo);
-      setTodo("");
+      props.onAddTodo({
+        id: (Math.random() * 100).toFixed(2),
+        title: title,
+        complete: false,
+      });
+      setTitle("");
     }
   };
 
@@ -23,7 +32,7 @@ const AddTodo = () => {
         className="add-todo__input"
         type="text"
         placeholder="please add todo"
-        value={todo}
+        value={title}
         onChange={handleChange}
         onKeyDown={handlekeyDown}
       />
