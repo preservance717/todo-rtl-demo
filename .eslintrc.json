@@ -3,12 +3,14 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:jest/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint",
-    "prettier"
+    "prettier",
+    "jest"
   ],
   "env": { "node": true },
   "parserOptions": {
@@ -17,6 +19,8 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "no-console": "warn"
+    "no-console": "warn", 
+    "no-empty-function": ["off", { "allow": ["functions"] }],
+    "@typescript-eslint/no-empty-function": "off"
   }
 }
