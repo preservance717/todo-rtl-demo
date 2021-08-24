@@ -5,22 +5,19 @@ import "./style.scss";
 
 interface Props {
   todos: Todo[];
-  toggleTodoStatus: (todo: Todo) => void;
+  onTodoChange: (todo: Todo) => void;
 }
 
-const TodoList: React.FC<Props> = ({ todos, toggleTodoStatus }) => {
+const TodoList: React.FC<Props> = ({ todos, onTodoChange }) => {
   return (
     <div className="todo-list">
       {todos.map((todo: Todo) => (
-        <div
-          className={`todo-item ${todo.complete ? "complete" : ""}`}
-          key={todo.id}
-        >
+        <div className={`todo-item ${todo.complete ? "complete" : ""}`} key={todo.id}>
           <input
             type="checkbox"
             id="a"
             checked={todo.complete}
-            onChange={() => toggleTodoStatus(todo)}
+            onChange={() => onTodoChange(todo)}
           />
           <label htmlFor="a">{todo.title}</label>
         </div>
