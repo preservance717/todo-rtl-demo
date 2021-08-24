@@ -1,28 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.scss";
 import { Container } from "react-bootstrap";
 import { AddTodo, TodoFooter, TodoList } from "./components";
 import { Todo } from "./data";
+import { TodosFilter } from "./enum";
 
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [viewTodos, setViewTodos] = useState<Todo[]>([]);
+  const [todosFilter, setTodosFilter] = useState<TodosFilter>(TodosFilter.All);
 
-  const fetchActiveTodos = () => {
-    setViewTodos(todos.filter((todo) => todo.complete !== true));
+  const handleFilterChange = (status: TodosFilter) => {
+    setTodosFilter(status);
   };
-
-  const fetchCompleteTodos = () => {
-    setViewTodos(todos.filter((todo) => todo.complete === true));
-  };
-
-  const fetchAllTodos = () => {
-    setViewTodos(todos);
-  };
-
-  useEffect(() => {
-    setViewTodos(todos);
-  }, [todos.length]);
 
   return (
     <Container className="app">
@@ -33,22 +22,23 @@ const App = () => {
         }}
       />
       <TodoList
-        todos={viewTodos}
-        toggleTodoStatus={(todo: Todo) => {
-          setTodos(
-            todos.map((itemTodo: Todo) => {
-              if (itemTodo.id === todo.id) {
-                itemTodo.complete = !itemTodo.complete;
+        todos={todos}
+        todosFilter={todosFilter}
+        onTodoChange={(todo: Todo) => {
+          setTodos((prevTodos) =>
+            prevTodos.map((itemTodo: Todo) => {
+              const newTodo = { ...itemTodo };
+              if (newTodo.id === todo.id) {
+                newTodo.complete = true;
               }
-              return itemTodo;
+              return newTodo;
             })
           );
         }}
       />
       <TodoFooter
-        fetchActiveTodos={() => fetchActiveTodos()}
-        fetchCompleteTodos={() => fetchCompleteTodos()}
-        fetchAllTodos={() => fetchAllTodos()}
+        onFilterChange={(status) => handleFilterChange(status)}
+        currentFilter={todosFilter}
       />
     </Container>
   );

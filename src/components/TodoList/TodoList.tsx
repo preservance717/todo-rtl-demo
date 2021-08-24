@@ -1,17 +1,37 @@
 import React from "react";
 import { Todo } from "../../data";
+import { TodosFilter } from "../../enum";
 
 import "./style.scss";
 
 interface Props {
   todos: Todo[];
+  todosFilter: TodosFilter;
   onTodoChange: (todo: Todo) => void;
 }
 
-const TodoList: React.FC<Props> = ({ todos, onTodoChange }) => {
+const filterActiveTodos = (todos: Todo[]) => todos.filter((todo) => todo.complete === false);
+const filterCompleteTodos = (todos: Todo[]) => todos.filter((todo) => todo.complete === true);
+const filterAllTodos = (todos: Todo[]) => todos.filter(() => true);
+
+const TodoList: React.FC<Props> = ({ todos, todosFilter, onTodoChange }) => {
+  let viewTodos: Todo[] = [];
+
+  switch (todosFilter) {
+    case TodosFilter.Active:
+      viewTodos = filterActiveTodos(todos);
+      break;
+    case TodosFilter.Complete:
+      viewTodos = filterCompleteTodos(todos);
+      break;
+    case TodosFilter.All:
+      viewTodos = filterAllTodos(todos);
+      break;
+  }
+
   return (
     <div className="todo-list">
-      {todos.map((todo: Todo) => (
+      {viewTodos.map((todo: Todo) => (
         <div className={`todo-item ${todo.complete ? "complete" : ""}`} key={todo.id}>
           <input
             type="checkbox"

@@ -1,28 +1,33 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import { TodosFilter } from "../../enum";
 
 import "./style.scss";
 
 interface Props {
-  fetchActiveTodos: () => void;
-  fetchCompleteTodos: () => void;
-  fetchAllTodos: () => void;
+  currentFilter: TodosFilter | null;
+  onFilterChange: (status: TodosFilter) => void;
 }
 
-const TodoFooter: React.FC<Props> = ({
-  fetchActiveTodos,
-  fetchCompleteTodos,
-  fetchAllTodos,
-}) => {
+const TodoFooter: React.FC<Props> = ({ currentFilter, onFilterChange }) => {
   return (
     <div className="todo-footer">
-      <Button variant="light" onClick={fetchActiveTodos}>
+      <Button
+        variant={`${currentFilter === TodosFilter.Active ? "dark" : "light"}`}
+        onClick={() => onFilterChange(TodosFilter.Active)}
+      >
         Active
       </Button>
-      <Button variant="light" onClick={fetchCompleteTodos}>
+      <Button
+        variant={`${currentFilter === TodosFilter.Complete ? "dark" : "light"}`}
+        onClick={() => onFilterChange(TodosFilter.Complete)}
+      >
         Complete
       </Button>
-      <Button variant="light" onClick={fetchAllTodos}>
+      <Button
+        variant={`${currentFilter === TodosFilter.All ? "dark" : "light"}`}
+        onClick={() => onFilterChange(TodosFilter.All)}
+      >
         All
       </Button>
     </div>
