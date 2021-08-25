@@ -17,6 +17,7 @@ const App = () => {
     <Container className="app">
       <h3 className="app__title">Todo</h3>
       <AddTodo
+        todos={todos}
         onAddTodo={(todo: Todo) => {
           setTodos((prevTodos: Todo[]) => [todo, ...prevTodos]);
         }}
@@ -26,13 +27,10 @@ const App = () => {
         todosFilter={todosFilter}
         onTodoChange={(todo: Todo) => {
           setTodos((prevTodos) =>
-            prevTodos.map((itemTodo: Todo) => {
-              const newTodo = { ...itemTodo };
-              if (newTodo.id === todo.id) {
-                newTodo.complete = true;
-              }
-              return newTodo;
-            })
+            prevTodos.map((itemTodo: Todo) => ({
+              ...itemTodo,
+              complete: itemTodo.id === todo.id ? !itemTodo.complete : itemTodo.complete,
+            }))
           );
         }}
       />

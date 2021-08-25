@@ -39,11 +39,13 @@ const TodoList: React.FC<Props> = ({ todos, todosFilter, onTodoChange }) => {
         >
           <input
             type="checkbox"
-            id="checkbox"
+            id={`checkbox${todo.id}`}
             checked={todo.complete}
-            onChange={() => onTodoChange(todo)}
+            onChange={() => {
+              onTodoChange(todo);
+            }}
           />
-          <label htmlFor="checkbox">{todo.title}</label>
+          <label htmlFor={`checkbox${todo.id}`}>{todo.title}</label>
         </div>
       ))}
     </div>

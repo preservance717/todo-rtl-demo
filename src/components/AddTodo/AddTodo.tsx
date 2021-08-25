@@ -6,6 +6,7 @@ const ENTER_KEY_CODE = 13;
 
 interface Props {
   onAddTodo: (todo: Todo) => void;
+  todos: Todo[];
 }
 
 const AddTodo: React.FC<Props> = (props: Props) => {
@@ -18,7 +19,7 @@ const AddTodo: React.FC<Props> = (props: Props) => {
   const handlekeyDown = (event: any) => {
     if (event.keyCode === ENTER_KEY_CODE) {
       props.onAddTodo({
-        id: (Math.random() * 100).toFixed(2),
+        id: `${props.todos.length}`,
         title: title,
         complete: false,
       });
