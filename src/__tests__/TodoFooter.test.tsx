@@ -1,7 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import userEvent from "@testing-library/user-event";
 
 import { TodosFilter } from "../enum";
 import { TodoFooter } from "../components";
@@ -20,17 +19,12 @@ describe("TodoFooter Test", () => {
 
     const allBtnNode = screen.getByText("All");
     expect(allBtnNode).toBeInTheDocument();
+    expect(allBtnNode).toHaveClass("btn-dark");
   });
 
-  it("should be called with buttons", () => {
-    const mockOnChnange = jest.fn();
-    render(<TodoFooter currentFilter={TodosFilter.All} onFilterChange={() => mockOnChnange()} />);
-
-    const activeBtn = screen.getByText("Active");
-    expect(activeBtn).toHaveClass("btn btn-light");
-
-    userEvent.click(activeBtn);
-    // expect(activeBtn).toHaveClass("btn btn-dark");
-    expect(mockOnChnange).toHaveBeenCalled();
+  it("should show active status with all button", () => {
+    render(<TodoFooter currentFilter={TodosFilter.All} onFilterChange={() => {}} />);
+    const allBtn = screen.getByText("All");
+    expect(allBtn).toHaveClass("btn-dark");
   });
 });
