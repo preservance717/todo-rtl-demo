@@ -28,30 +28,25 @@ describe("TodoList Test", () => {
   });
 
   //Todo checkbox的测试
-  // eslint-disable-next-line jest/no-commented-out-tests
-  // it("should be checked when complete is true", () => {
-  //   const todos: Todo[] = [
-  //     {
-  //       title: "todo1",
-  //       complete: false,
-  //       id: "1",
-  //     },
-  //   ];
-  //   render(
-  //     <TodoList
-  //       todos={todos}
-  //       todosFilter={TodosFilter.All}
-  //       onTodoChange={() => {
-  //         todos[0].complete = true;
-  //       }}
-  //     />
-  //   );
+  it("should be checked when complete is true", () => {
+    const mockOnChange = jest.fn();
+    const todos: Todo[] = [
+      {
+        title: "todo1",
+        complete: false,
+        id: "1",
+      },
+    ];
+    render(
+      <TodoList todos={todos} todosFilter={TodosFilter.All} onTodoChange={() => mockOnChange()} />
+    );
 
-  //   const checkbox = screen.getByRole("checkbox");
-  //   userEvent.click(checkbox);
+    const checkbox = screen.getByRole("checkbox");
+    userEvent.click(checkbox);
 
-  //   expect(checkbox).toBeChecked();
-  // });
+    expect(mockOnChange).toHaveBeenCalled();
+    // expect(checkbox).toBeChecked();
+  });
 
   it("should show active todos", () => {
     const todos: Todo[] = [
