@@ -13,11 +13,11 @@ interface Props {
 const AddTodo: React.FC<Props> = (props: Props) => {
   const [title, setTitle] = useState("");
 
-  const handleChange = ({ target }: { target: any }) => {
-    setTitle(target.value);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
   };
 
-  const handlekeyDown = (event: any) => {
+  const handlekeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.keyCode === ENTER_KEY_CODE) {
       props.onAddTodo({
         id: `${props.todos.length}`,
