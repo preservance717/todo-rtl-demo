@@ -31,11 +31,12 @@ const TodoList: React.FC<Props> = ({ todos, todosFilter, onTodoChange }) => {
 
   return (
     <ul className="todo-list">
-      {viewTodos.map((todo: Todo) => (
+      {viewTodos.map((todo: Todo, index: number) => (
         <li className={`todo-item ${todo.complete ? "complete" : ""}`} key={todo.id}>
           <input
             type="checkbox"
             id={`checkbox${todo.id}`}
+            data-testid={`checkbox${index}`}
             checked={todo.complete}
             onChange={() => {
               onTodoChange(todo);
