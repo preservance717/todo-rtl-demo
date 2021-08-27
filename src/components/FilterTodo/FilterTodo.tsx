@@ -9,9 +9,9 @@ interface Props {
   onFilterChange: (status: TodosFilter) => void;
 }
 
-const TodoFooter: React.FC<Props> = ({ currentFilter, onFilterChange }) => {
+const FilterTodo: React.FC<Props> = ({ currentFilter, onFilterChange }) => {
   return (
-    <div className="todo-footer">
+    <div className="filter-todo">
       <Button
         variant={`${currentFilter === TodosFilter.Active ? "dark" : "light"}`}
         onClick={() => onFilterChange(TodosFilter.Active)}
@@ -34,9 +34,9 @@ const TodoFooter: React.FC<Props> = ({ currentFilter, onFilterChange }) => {
   );
 };
 
-TodoFooter.defaultProps = {
+FilterTodo.defaultProps = {
   currentFilter: TodosFilter.All,
   onFilterChange: () => {},
 };
 
-export default TodoFooter;
+export default FilterTodo;

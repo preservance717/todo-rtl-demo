@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.scss";
 import { Container } from "react-bootstrap";
-import { AddTodo, TodoFooter, TodoList } from "./components";
+import { AddTodo, FilterTodo, TodoList } from "./components";
 import { Todo } from "./data";
 import { TodosFilter } from "./enum";
 
@@ -34,7 +34,7 @@ const App = () => {
           );
         }}
       />
-      <TodoFooter
+      <FilterTodo
         onFilterChange={(status) => handleFilterChange(status)}
         currentFilter={todosFilter}
       />

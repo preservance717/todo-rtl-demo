@@ -3,11 +3,11 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import { TodosFilter } from "../enum";
-import { TodoFooter } from "../components";
+import { FilterTodo } from "../components";
 
-describe("TodoFooter Test", () => {
+describe("FilterTodo Test", () => {
   it("should show three btns", () => {
-    render(<TodoFooter currentFilter={TodosFilter.All} onFilterChange={() => {}} />);
+    render(<FilterTodo currentFilter={TodosFilter.All} onFilterChange={() => {}} />);
     const btnNodes = screen.getAllByRole("button");
     expect(btnNodes.length).toBe(3);
 
@@ -23,7 +23,7 @@ describe("TodoFooter Test", () => {
   });
 
   it("should show active status with all button", () => {
-    render(<TodoFooter currentFilter={TodosFilter.All} onFilterChange={() => {}} />);
+    render(<FilterTodo currentFilter={TodosFilter.All} onFilterChange={() => {}} />);
     const allBtn = screen.getByText("All");
     expect(allBtn).toHaveClass("btn-dark");
   });
