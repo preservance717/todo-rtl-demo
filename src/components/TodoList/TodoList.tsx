@@ -49,4 +49,10 @@ const TodoList: React.FC<Props> = ({ todos, todosFilter, onTodoChange }) => {
   );
 };
 
+TodoList.defaultProps = {
+  todos: [],
+  todosFilter: TodosFilter.Active || TodosFilter.All || TodosFilter.Complete,
+  onTodoChange: () => {},
+};
+
 export default TodoList;

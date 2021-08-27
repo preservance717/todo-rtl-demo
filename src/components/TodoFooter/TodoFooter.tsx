@@ -34,4 +34,9 @@ const TodoFooter: React.FC<Props> = ({ currentFilter, onFilterChange }) => {
   );
 };
 
+TodoFooter.defaultProps = {
+  currentFilter: TodosFilter.All,
+  onFilterChange: () => {},
+};
+
 export default TodoFooter;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { Todo } from "../../data";
 import "./style.scss";
 
@@ -39,6 +40,11 @@ const AddTodo: React.FC<Props> = (props: Props) => {
       />
     </div>
   );
+};
+
+AddTodo.defaultProps = {
+  todos: [],
+  onAddTodo: () => {},
 };
 
 export default AddTodo;
