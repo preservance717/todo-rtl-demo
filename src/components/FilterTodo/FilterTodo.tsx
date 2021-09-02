@@ -5,38 +5,29 @@ import { TodosFilter } from "../../enum";
 import "./style.scss";
 
 interface Props {
-  currentFilter: TodosFilter | null;
+  currentFilter?: TodosFilter | null;
   onFilterChange: (status: TodosFilter) => void;
 }
 
+const isFilterHighlighted = (filter, prevFilter) => filter === prevFilter ? "active" : ""
 const FilterTodo: React.FC<Props> = ({ currentFilter, onFilterChange }) => {
   return (
     <div className="filter-todo">
-      <Button
-        variant={`${currentFilter === TodosFilter.Active ? "dark" : "light"}`}
-        onClick={() => onFilterChange(TodosFilter.Active)}
+      // TODO TodosFilter.map((item) => {
+        return (
+          <Button
+        role="radio"
+        variant={isFilterHighlighted(item, currentFilter)}
+        onClick={() => onFilterChange(item)}
       >
-        Active
-      </Button>
-      <Button
-        variant={`${currentFilter === TodosFilter.Complete ? "dark" : "light"}`}
-        onClick={() => onFilterChange(TodosFilter.Complete)}
-      >
-        Complete
-      </Button>
-      <Button
-        variant={`${currentFilter === TodosFilter.All ? "dark" : "light"}`}
-        onClick={() => onFilterChange(TodosFilter.All)}
-      >
-        All
+        )
+      })
+        {item}
       </Button>
     </div>
   );
 };
 
-FilterTodo.defaultProps = {
-  currentFilter: TodosFilter.All,
-  onFilterChange: () => {},
-};
+FilterTodo.defaultProps
 
 export default FilterTodo;

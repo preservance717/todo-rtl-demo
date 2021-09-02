@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "../App";
 
-describe("App test", () => {
+describe("App", () => {
   it("should render todo list when adding todo", () => {
     render(<App />);
 
@@ -23,7 +23,7 @@ describe("App test", () => {
     expect(screen.getAllByRole("listitem")).toHaveLength(2);
   });
 
-  it("should show active list when clicking active button", () => {
+  it("should show active list when clicking the active filter button", () => {
     render(<App />);
 
     const input = screen.getByRole("textbox");
@@ -44,7 +44,7 @@ describe("App test", () => {
     expect(screen.getByLabelText("todo0")).toBeInTheDocument();
   });
 
-  it("should show complete list when clicking complete button", () => {
+  it("should show complete list when clicking the complete filter button", () => {
     render(<App />);
 
     const input = screen.getByRole("textbox");
@@ -74,7 +74,7 @@ describe("App test", () => {
     expect(screen.getByLabelText("todo0")).toBeInTheDocument();
   });
 
-  it("should be checked when click unactive checkbox", () => {
+  it("Todo should be checked when clicking the Todo", () => {
     render(<App />);
 
     const input = screen.getByRole("textbox");
@@ -87,7 +87,7 @@ describe("App test", () => {
     expect(checkbox).toBeChecked();
   });
 
-  it("should be unchecked when click active checkbox", () => {
+  it("Todo should be unchecked when clicking checked active Todo", () => {
     render(<App />);
 
     const input = screen.getByRole("textbox");

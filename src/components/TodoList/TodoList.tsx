@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Todo } from "../../data";
 import { TodosFilter } from "../../enum";
 
@@ -6,16 +6,16 @@ import "./style.scss";
 
 interface Props {
   todos: Todo[];
-  todosFilter: TodosFilter;
+  todosFilter?: TodosFilter;
   onTodoChange: (todo: Todo) => void;
 }
 
-const filterActiveTodos = (todos: Todo[]) => todos.filter((todo) => todo.complete === false);
-const filterCompleteTodos = (todos: Todo[]) => todos.filter((todo) => todo.complete === true);
-const filterAllTodos = (todos: Todo[]) => todos.filter(() => true);
+const filterActiveTodos = (todos: Todo[]) => todos.filter((todo) => !todo.complete);
+const filterCompleteTodos = (todos: Todo[]) => todos.filter((todo) => todo.complete);
 
 const TodoList: React.FC<Props> = ({ todos, todosFilter, onTodoChange }) => {
-  let viewTodos: Todo[] = [];
+  useEffect(()=> {
+    let viewTodos: Todo[] = [];
 
   switch (todosFilter) {
     case TodosFilter.Active:
@@ -25,14 +25,25 @@ const TodoList: React.FC<Props> = ({ todos, todosFilter, onTodoChange }) => {
       viewTodos = filterCompleteTodos(todos);
       break;
     case TodosFilter.All:
-      viewTodos = filterAllTodos(todos);
+      viewTodos = todos;
       break;
   }
+
+//TODO Try the init state
+  }, [todosFilter])
+  
+  // init
+  // filter
+  //add to do
+
+//TODO: function naming
+  const isActive = () => ${todo.complete & todo.id ? "complete" : ""}
 
   return (
     <ul className="todo-list">
       {viewTodos.map((todo: Todo, index: number) => (
-        <li className={`todo-item ${todo.complete ? "complete" : ""}`} key={todo.id}>
+        //TODO active/checked
+        <li className={`todo-item ${isActive(todo)}`} key={todo.id}>
           <input
             type="checkbox"
             id={`checkbox${todo.id}`}
@@ -50,9 +61,7 @@ const TodoList: React.FC<Props> = ({ todos, todosFilter, onTodoChange }) => {
 };
 
 TodoList.defaultProps = {
-  todos: [],
-  todosFilter: TodosFilter.Active || TodosFilter.All || TodosFilter.Complete,
-  onTodoChange: () => {},
+  todosFilter: TodosFilter.All,
 };
 
 export default TodoList;
