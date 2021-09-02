@@ -10,11 +10,16 @@ const App = () => {
   const [todosFilter, setTodosFilter] = useState<TodosFilter>(TodosFilter.All);
 
   const handleFilterChange = (status: TodosFilter) => {
+    //TODO Inline
     setTodosFilter(status);
   };
 
+  const isComplete = (todo, preTodo) =>
+    todo.id === preTodo.id ? !itemTodo.complete : itemTodo.complete;
+
   return (
     <Container className="app">
+      //TODO CSS naming
       <h3 className="app__title">Todo</h3>
       <AddTodo
         todos={todos}
@@ -26,10 +31,12 @@ const App = () => {
         todos={todos}
         todosFilter={todosFilter}
         onTodoChange={(todo: Todo) => {
+          //TODO Extract handleTodoChange()
           setTodos((prevTodos) =>
             prevTodos.map((itemTodo: Todo) => ({
               ...itemTodo,
-              complete: itemTodo.id === todo.id ? !itemTodo.complete : itemTodo.complete,
+              //TODO Extract variable
+              complete: isComplete,
             }))
           );
         }}

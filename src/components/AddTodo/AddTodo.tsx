@@ -18,6 +18,7 @@ const AddTodo: React.FC<Props> = (props: Props) => {
   };
 
   const handlekeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    //TODO event.key === 'Enter'
     if (event.keyCode === ENTER_KEY_CODE) {
       props.onAddTodo({
         id: `${props.todos.length}`,
