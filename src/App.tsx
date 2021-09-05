@@ -9,13 +9,21 @@ const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [todosFilter, setTodosFilter] = useState<TodosFilter>(TodosFilter.All);
 
-  const handleFilterChange = (status: TodosFilter) => {
-    setTodosFilter(status);
+  const isComplete = (itemTodo: Todo, todo: Todo) =>
+    itemTodo.id === todo.id ? !itemTodo.complete : itemTodo.complete;
+
+  const handleTodoChange = (todo: Todo) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((itemTodo: Todo) => ({
+        ...itemTodo,
+        complete: isComplete(itemTodo, todo),
+      }))
+    );
   };
 
   return (
     <Container className="app">
-      <h3 className="app__title">Todo</h3>
+      <h3 className="app__header">Todo</h3>
       <AddTodo
         todos={todos}
         onAddTodo={(todo: Todo) => {
@@ -25,19 +33,9 @@ const App = () => {
       <TodoList
         todos={todos}
         todosFilter={todosFilter}
-        onTodoChange={(todo: Todo) => {
-          setTodos((prevTodos) =>
-            prevTodos.map((itemTodo: Todo) => ({
-              ...itemTodo,
-              complete: itemTodo.id === todo.id ? !itemTodo.complete : itemTodo.complete,
-            }))
-          );
-        }}
+        onTodoChange={(todo: Todo) => handleTodoChange(todo)}
       />
-      <FilterTodo
-        onFilterChange={(status) => handleFilterChange(status)}
-        currentFilter={todosFilter}
-      />
+      <FilterTodo onFilterChange={(status) => setTodosFilter(status)} currentFilter={todosFilter} />
     </Container>
   );
 };
